@@ -2,7 +2,13 @@ using Synchronizer.Infrastructure.Clients.Slack;
 
 Console.Title = "StatusSync";
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseKestrel().UseIISIntegration().UseUrls("http://localhost:2362");
+Console.Write("Use Localhost?\n\n[Y]es / [N]o");
+bool runLocalhost = Console.ReadKey().Key == ConsoleKey.Y;
+Console.Clear();
+builder.WebHost
+    .UseKestrel()
+    .UseIISIntegration()
+    .UseUrls($"http://{(runLocalhost ? "localhost" : "192.168.1.22")}:2362");
 
 // Add services to the container.
 builder.Services.AddControllers();
