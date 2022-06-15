@@ -1,8 +1,9 @@
 using Synchronizer.Infrastructure.Clients.Slack;
+using Synchronizer.Web.Service.Middleware;
 
 Console.Title = "StatusSync";
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-Console.Write("Use Localhost?\n\n[Y]es / [N]o");
+Console.WriteLine("Use Localhost?\n\n[Y]es / [N]o\n");
 bool runLocalhost = Console.ReadKey().Key == ConsoleKey.Y;
 Console.Clear();
 builder.WebHost
@@ -20,6 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISlackClient, SlackClient>();
 
 WebApplication app = builder.Build();
+
+app.UseRequestResponseMiddleware();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
