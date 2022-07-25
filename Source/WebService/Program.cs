@@ -1,3 +1,4 @@
+using Synchronizer.Infrastructure.Cache;
 using Synchronizer.Infrastructure.Clients.Slack;
 using Synchronizer.Web.Service.Middleware;
 
@@ -19,6 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ISlackClient, SlackClient>();
+builder.Services.AddScoped<IStatusCache, StatusCache>();
 
 WebApplication app = builder.Build();
 
